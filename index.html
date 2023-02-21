@@ -111,7 +111,7 @@
         </div>
         <div  class="col-12 col-md-12">
             <div  class="target">
-                <div  style="font-weight: 700;" class="card-header">Alumnos Registrados</div>
+                <div  style="font-weight: 700;" class="card-header">Registro de Alumnos</div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -180,15 +180,6 @@
             },
             methods:{
                 guardarAlumno(){
-                    let store= this.abrirStore('tblAlumnos','readwrite');
-                    if(this.accion==='nuevo'){
-                        this.Alumno.idAlumno= new Date().getTime().toString(16);{}
-                    }
-                    store.put(JSON.parse(JSON.stringify(this.Alumno)));
-                    this.listarAlumnos();
-                    this.nuevoAlumno();
-                },
-
                     this.listarAlumnos();
                     if(this.accion==='nuevo'){
                         this.alumno.idAlumno = new Date().getTime().toString(16);
@@ -197,7 +188,6 @@
                         let index = this.alumnos.findIndex(alumno=>alumno.idAlumno==this.alumno.idAlumno);
                         this.alumnos[index] = JSON.parse( JSON.stringify(this.alumno) );
                     }else if(this.accion==='borrar'){
-                        this.Alumnos=data.result.filter(Alumno=>alumno.)
                         let index = this.alumnos.findIndex(alumno=>alumno.idAlumno==this.alumno.idAlumno);
                         this.alumnos.splice(index,1);
                     }
@@ -209,11 +199,6 @@
                         this.accion='borrar';
                         this.alumno=alumno;
                         this.guardarAlumno();
-                        store.delete(alumno.idAlumno);
-                          
-                            this.listarAlumnos();
-                            console.log)resp
-                        }
                     }
                 },
                 nuevoAlumno(){
@@ -233,20 +218,8 @@
                     this.alumno = alumno;
                 },
                 listarAlumnos(){
-                    let store= this.abrirStore('tblALumnos','readonly'),
-                        data= store.getAll();
-                        data.ounsuccess= resp=>
-                    
-                },
-                abrirStore(){
-                    let tx= db.transaction(store,modo); //modo=reareadonly[[writeonly
-                    return tx.objectStore(store)
-                abrirBD(){
-                    let indexDB=indexedDB.open('db_sistema_academico,1');
-                    indexDB.onupgradeneeded=e=>
-                         let req= e.target.result,
-                         tblalumno= req.createObjectStore('tblAlumnos',(keypath:'iDAlumno'))
-
+                    this.alumnos = JSON.parse( localStorage.getItem('alumnos') || "[]" )
+                        .filter(alumno=>alumno.nombre.toLowerCase().indexOf(this.buscar.toLowerCase())>-1);
                 }
             },
             created(){
@@ -255,4 +228,4 @@
         }).mount('#app');
     </script>
 </body>
-</html>= 
+</html>
